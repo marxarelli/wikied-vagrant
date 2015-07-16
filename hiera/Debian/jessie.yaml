@@ -1,0 +1,6 @@
+---
+wikiedu::dependencies::packages:
+  - ruby2.1
+  - ruby2.1-dev
+  - nodejs
+  - nodejs-legacy

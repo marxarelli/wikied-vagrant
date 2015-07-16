@@ -1,0 +1,11 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: /vagrant/hiera
+:hierarchy:
+  - "%{::lsbdistid}/%{::lsbdistcodename}"
+  - "%{::environment}"
+  - common
+  - local
+:logger: console

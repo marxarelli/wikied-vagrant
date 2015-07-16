@@ -1,0 +1,12 @@
+##
+# Configure your Git and GitHub account details, and be sure to fork the repo
+# from https://github.com/WikiEducationFoundation/WikiEduDashboard
+#
+git::configs:
+  user.name:
+    value: 'Dan Duvall'
+  user.email:
+    value: 'dan@mutual.io'
+
+github::username: marxarelli
+wikiedu::dashboard::source: https://github.com/%{::github::username}/WikiEduDashboard.git

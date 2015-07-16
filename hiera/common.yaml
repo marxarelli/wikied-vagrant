@@ -1,0 +1,4 @@
+---
+classes:
+  - '::wikiedu::dependencies'
+  - '::wikiedu::dashboard'

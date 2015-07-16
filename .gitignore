@@ -1,0 +1,6 @@
+/.vagrant
+/.bundle
+/.gem
+/.ruby-version
+/WikiEduDashboard/
+/hiera/local.yaml.example
