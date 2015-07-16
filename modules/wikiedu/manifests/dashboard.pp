@@ -17,4 +17,8 @@ class wikiedu::dashboard(
     npm::install { '/vagrant/WikiEduDashboard':
         require => Vcsrepo['/vagrant/WikiEduDashboard'],
     }
+
+    bower::install { '/vagrant/WikiEduDashboard':
+        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    }
 }

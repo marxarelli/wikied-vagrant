@@ -10,12 +10,33 @@
 # [*user*]
 #   User to run the installation as.
 #
+# [*global*]
+#   Whether to install the package globally.
+#
+# [*package*]
+#   A specific package to install. Default: install everything in
+#   packages.json.
+#
 define npm::install(
     $directory = $title,
     $user = 'vagrant',
+    $global = false,
+    $package = undef,
 ) {
-    exec { "${title}_npm_install":
-        command     => '/usr/bin/npm install --no-bin-links',
+    $flags = $global ? { true => '-g', default => '' }
+
+    $modules_path = $global ? {
+        true => "/usr/local/lib/node_modules",
+        default => "${directory}/node_modules",
+    }
+
+    $created_path = $package ? {
+        undef   => $modules_path,
+        default => "${modules_path}/${package}",
+    }
+
+    exec { "npm_install_${title}":
+        command     => "/usr/bin/npm install ${package} --no-bin-links ${flags}",
         cwd         => $directory,
         user        => $user,
         environment => [
@@ -23,7 +44,7 @@ define npm::install(
             'LINK=g++',
             "HOME=/home/${user}",
         ],
-        creates     => "${directory}/node_modules",
+        creates     => $created_path,
         timeout     => 60 * 20,
         logoutput   => true,
     }
