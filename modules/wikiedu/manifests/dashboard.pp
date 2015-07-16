@@ -9,4 +9,12 @@ class wikiedu::dashboard(
         revision => $revision,
         user     => 'vagrant',
     }
+
+    bundler::install { '/vagrant/WikiEduDashboard':
+        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    }
+
+    npm::install { '/vagrant/WikiEduDashboard':
+        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    }
 }

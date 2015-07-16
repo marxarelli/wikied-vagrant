@@ -1,0 +1,5 @@
+class bundler(
+    $bin,
+    $ruby,
+) {
+}

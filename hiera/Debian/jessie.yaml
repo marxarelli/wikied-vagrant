@@ -1,6 +1,16 @@
 ---
+bundler::ruby: ruby2.1
+bundler::bin: /usr/bin/bundle
+
 wikiedu::dependencies::packages:
   - ruby2.1
   - ruby2.1-dev
+  - rubygems-integration
+  - bundler
   - nodejs
   - nodejs-legacy
+  - npm
+  - libmysqlclient-dev
+  - libpq-dev
+  - libqtwebkit-dev
+  - libsqlite3-dev
