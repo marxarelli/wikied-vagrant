@@ -1,2 +1,4 @@
-class github($username) {
+class github(
+    $username,
+) {
 }

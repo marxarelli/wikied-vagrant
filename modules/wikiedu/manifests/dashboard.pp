@@ -2,7 +2,9 @@ class wikiedu::dashboard(
     $source,
     $revision,
 ) {
-    vcsrepo { '/vagrant/WikiEduDashboard':
+    $dir = '/vagrant/WikiEduDashboard'
+
+    vcsrepo { $dir:
         ensure   => present,
         provider => git,
         source   => $source,
@@ -10,15 +12,49 @@ class wikiedu::dashboard(
         user     => 'vagrant',
     }
 
-    bundler::install { '/vagrant/WikiEduDashboard':
-        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    bundler::install { $dir:
+        require => Vcsrepo[$dir],
     }
 
-    npm::install { '/vagrant/WikiEduDashboard':
-        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    npm::install { $dir:
+        require => Vcsrepo[$dir],
     }
 
-    bower::install { '/vagrant/WikiEduDashboard':
-        require => Vcsrepo['/vagrant/WikiEduDashboard'],
+    bower::install { $dir:
+        require => Vcsrepo[$dir],
+    }
+
+    file { "${dir}/config/database.yml":
+        source  => 'puppet:///modules/wikiedu/database.yml',
+        owner   => 'vagrant',
+        group   => 'vagrant',
+        require => Vcsrepo[$dir],
+    }
+
+    file { "${dir}/config/application.yml":
+        source  => "${dir}/config/application.example.yml",
+        require => Vcsrepo[$dir],
+    }
+
+    mysql::database { ['dashboard', 'dashboard_test']:
+        require => [
+            File["${dir}/config/database.yml"],
+            File["${dir}/config/application.yml"],
+        ]
+    }
+
+    bundler::command { 'exec rake db:migrate':
+        directory => $dir,
+        unless    => "exec rake db:migrate:status | awk '\$1 == \"down\" { exit 1 }'",
+        require   => [
+            Bundler::Install[$dir],
+            Npm::Install[$dir],
+            Mysql::Database['dashboard'],
+        ]
+    }
+
+    # Make sure the zeus socket is created outside the vboxsf mount
+    file { '/etc/environment':
+        content => 'ZEUSSOCK=/tmp/zeus.sock',
     }
 }
