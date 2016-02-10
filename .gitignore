@@ -3,4 +3,4 @@
 /.gem
 /.ruby-version
 /WikiEduDashboard/
-/hiera/local.yaml.example
+/hiera/local.yaml
