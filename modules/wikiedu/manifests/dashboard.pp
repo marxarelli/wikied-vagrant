@@ -56,6 +56,11 @@ class wikiedu::dashboard(
         ]
     }
 
+    bundler::command { 'exec rake cohort:add_cohorts':
+        directory => $dir,
+        require   => Bundler::Command['exec rake db:migrate'],
+    }
+
     # Make sure the zeus socket is created outside the vboxsf mount
     file { '/etc/environment':
         content => 'ZEUSSOCK=/tmp/zeus.sock',
