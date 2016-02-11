@@ -47,5 +47,6 @@ define npm::install(
         creates     => $created_path,
         timeout     => 60 * 20,
         logoutput   => true,
+        require     => Package['npm'],
     }
 }

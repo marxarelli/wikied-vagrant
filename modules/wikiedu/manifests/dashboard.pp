@@ -24,6 +24,8 @@ class wikiedu::dashboard(
         require => Vcsrepo[$dir],
     }
 
+    npm::package { 'gulp': }
+
     file { "${dir}/config/database.yml":
         source  => 'puppet:///modules/wikiedu/database.yml',
         owner   => 'vagrant',
@@ -47,7 +49,6 @@ class wikiedu::dashboard(
 
     bundler::command { 'exec rake db:migrate':
         directory => $dir,
-        unless    => "exec rake db:migrate:status | awk '\$1 == \"down\" { exit 1 }'",
         require   => [
             Bundler::Install[$dir],
             Npm::Install[$dir],
