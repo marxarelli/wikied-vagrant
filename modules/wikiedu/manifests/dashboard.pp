@@ -28,11 +28,13 @@ class wikiedu::dashboard(
         source  => 'puppet:///modules/wikiedu/database.yml',
         owner   => 'vagrant',
         group   => 'vagrant',
+        replace => false,
         require => Vcsrepo[$dir],
     }
 
     file { "${dir}/config/application.yml":
         source  => "${dir}/config/application.example.yml",
+        replace => false,
         require => Vcsrepo[$dir],
     }
 

@@ -17,4 +17,6 @@ Vagrant.configure(2) do |config|
 
     puppet.options << '--debug' if ENV.include?('DEBUG')
   end
+
+  config.vm.network :forwarded_port, guest: 3000, host:3000
 end

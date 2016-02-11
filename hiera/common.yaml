@@ -3,4 +3,4 @@ classes:
   - '::wikiedu::dependencies'
   - '::wikiedu::dashboard'
 
-wikiedu::dashboard::source: https://github.com/%{::github::username}/WikiEduDashboard.git
+wikiedu::dashboard::source: https://github.com/WikiEducationFoundation/WikiEduDashboard.git
