@@ -40,7 +40,7 @@ class wikiedu::dashboard(
         require => Vcsrepo[$dir],
     }
 
-    mysql::database { ['dashboard', 'dashboard_test']:
+    mysql::database { ['dashboard', 'dashboard_testing']:
         require => [
             File["${dir}/config/database.yml"],
             File["${dir}/config/application.yml"],
