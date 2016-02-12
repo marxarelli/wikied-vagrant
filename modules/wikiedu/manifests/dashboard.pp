@@ -62,7 +62,16 @@ class wikiedu::dashboard(
     }
 
     # Make sure the zeus socket is created outside the vboxsf mount
-    file { '/etc/environment':
-        content => 'ZEUSSOCK=/tmp/zeus.sock',
+    file_line { '/etc/environment-ZEUSSOCK':
+        path  => '/etc/environment',
+        line  => 'ZEUSSOCK=/tmp/zeus.sock',
+        match => '^ZEUSSOCK\=',
+    }
+
+    # Tell the Rails server (via guard) to run on all interfaces
+    file_line { '/etc/environment-RAILS_HOST':
+        path  => '/etc/environment',
+        line  => 'RAILS_HOST=0.0.0.0',
+        match => '^RAILS_HOST\=',
     }
 }
