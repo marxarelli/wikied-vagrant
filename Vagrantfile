@@ -4,8 +4,9 @@
 Vagrant.configure(2) do |config|
   config.vm.box = 'debian/contrib-jessie64'
 
-  config.vm.provider 'virtualbox' do |vb|
+  config.vm.provider 'virtualbox' do |vb, override|
     vb.memory = '1024'
+    override.vm.network :private_network, ip: '10.11.12.14'
   end
 
   config.vm.provision :shell, inline: 'apt-get update && apt-get install -y puppet'
