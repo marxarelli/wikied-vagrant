@@ -23,7 +23,7 @@ define npm::install(
     $global = false,
     $package = undef,
 ) {
-    $flags = $global ? { true => '-g', default => '' }
+    $flags = $global ? { true => '-g', default => '--no-bin-links' }
 
     $modules_path = $global ? {
         true => "/usr/local/lib/node_modules",
@@ -36,7 +36,7 @@ define npm::install(
     }
 
     exec { "npm_install_${title}":
-        command     => "/usr/bin/npm install ${package} --no-bin-links ${flags}",
+        command     => "/usr/bin/npm install ${package} ${flags}",
         cwd         => $directory,
         user        => $user,
         environment => [
