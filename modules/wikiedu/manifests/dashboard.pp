@@ -35,7 +35,7 @@ class wikiedu::dashboard(
     }
 
     file { "${dir}/config/application.yml":
-        source  => "${dir}/config/application.example.yml",
+        source  => 'puppet:///modules/wikiedu/application.yml',
         replace => false,
         require => Vcsrepo[$dir],
     }
