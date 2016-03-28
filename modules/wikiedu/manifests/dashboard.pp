@@ -4,6 +4,8 @@ class wikiedu::dashboard(
 ) {
     $dir = '/vagrant/WikiEduDashboard'
 
+    require ::wikiedu::dependencies
+
     vcsrepo { $dir:
         ensure   => present,
         provider => git,

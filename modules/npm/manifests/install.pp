@@ -26,7 +26,7 @@ define npm::install(
     $flags = $global ? { true => '-g', default => '--no-bin-links' }
 
     $modules_path = $global ? {
-        true => "/usr/local/lib/node_modules",
+        true => "/usr/lib/node_modules",
         default => "${directory}/node_modules",
     }
 
@@ -47,6 +47,6 @@ define npm::install(
         creates     => $created_path,
         timeout     => 60 * 20,
         logoutput   => true,
-        require     => Package['npm'],
+        require     => Package['nodejs'],
     }
 }

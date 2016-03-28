@@ -17,7 +17,7 @@ define bower::install(
     require ::bower
 
     exec { "bower_install_${title}":
-        command     => '/usr/local/lib/node_modules/bower/bin/bower install',
+        command     => '/usr/bin/bower install',
         cwd         => $directory,
         user        => $user,
         environment => "HOME=/home/${user}",
