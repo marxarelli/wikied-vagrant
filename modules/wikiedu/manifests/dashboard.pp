@@ -5,6 +5,7 @@ class wikiedu::dashboard(
     $dir = '/vagrant/WikiEduDashboard'
 
     require ::wikiedu::dependencies
+    include ::xvfb
 
     vcsrepo { $dir:
         ensure   => present,
@@ -38,6 +39,8 @@ class wikiedu::dashboard(
 
     file { "${dir}/config/application.yml":
         source  => 'puppet:///modules/wikiedu/application.yml',
+        owner   => 'vagrant',
+        group   => 'vagrant',
         replace => false,
         require => Vcsrepo[$dir],
     }
@@ -75,5 +78,12 @@ class wikiedu::dashboard(
         path  => '/etc/environment',
         line  => 'RAILS_HOST=0.0.0.0',
         match => '^RAILS_HOST\=',
+    }
+
+    # Set DISPLAY to the xvfb display for running full-stack tests headlessly
+    file_line { '/etc/environment-DISPLAY':
+        path  => '/etc/environment',
+        line  => "DISPLAY=${::xvfb::display}",
+        match => '^DISPLAY\=',
     }
 }

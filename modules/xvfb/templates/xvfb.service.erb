@@ -1,0 +1,9 @@
+[Unit]
+Description=X Virtual Frame Buffer Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/Xvfb <%= @display %> -screen 0 <%= @resolution %>
+
+[Install]
+WantedBy=multi-user.target

@@ -4,5 +4,5 @@ class wikiedu::dependencies(
     include ::git
     require ::nodesource
 
-    ensure_resource('package', $packages, { ensure => installed })
+    ensure_resource('package', $packages, { ensure => latest })
 }

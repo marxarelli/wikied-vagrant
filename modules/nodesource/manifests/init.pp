@@ -1,12 +1,14 @@
 # Adds an apt source for up-to-date node packages.
 #
-class nodesource {
+class nodesource(
+    $source,
+) {
     package { 'apt-transport-https':
         ensure => installed,
     }
 
     file { '/etc/apt/sources.list.d/nodesource.list':
-        content => 'deb https://deb.nodesource.com/node_4.x jessie main',
+        content => $source,
         require => Package['apt-transport-https'],
     }
 
